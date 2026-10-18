@@ -73,20 +73,20 @@ p { margin: 0; text-wrap: pretty; }
 
 /* Masthead */
 .masthead { text-align: center; padding-top: 28px; }
-.masthead .wrap { border-bottom: 3px double var(--ink); padding-bottom: 14px; }
+.masthead .wrap { border-bottom: 3px double var(--ink); padding-bottom: 7px; }
 .wordmark { display: inline-block; font-family: "UnifrakturMaguntia", "UnifrakturMaguntia Fallback", serif; font-size: clamp(3rem, 2rem + 4vw, 5rem); line-height: 1; text-decoration: none; }
-.nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; margin: 14px 0 0; padding: 0; list-style: none; font-size: 1.1875rem; }
-.nav a { text-decoration: none; font-variant-caps: all-small-caps; letter-spacing: 0.1em; }
+/* Each link is a 44 px tap target around its small-caps word; the margins are trimmed by the extra
+   height, so the menu sits where the bare words did (on phones the second row moves down a little) */
+.nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 28px; margin: 7px 0 0; padding: 0; list-style: none; font-size: 1.1875rem; }
+.nav a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-width: 44px; min-height: 44px; text-decoration: none; font-variant-caps: all-small-caps; letter-spacing: 0.1em; }
 .nav a:hover { text-decoration: underline; }
 .nav a[aria-current="page"] { color: var(--red); }
-.nav-fb { display: inline-flex; align-items: center; gap: 7px; }
 .nav-fb svg { width: 0.95em; height: 0.95em; flex: none; }
 /* Facebook leaves the site, so it sits apart behind a hairline; icon only on phones to keep the rows short */
-.nav-aside { border-left: 1px solid var(--ink-soft); padding-left: 28px; }
+.nav-aside { display: flex; align-items: center; gap: 28px; }
+.nav-aside::before { content: ""; height: 1.7em; border-left: 1px solid var(--ink-soft); }
 @media (max-width: 480px) {
-	.nav ul { column-gap: 14px; }
-	.nav-aside { padding-left: 14px; }
-	.nav-fb { min-height: 28px; }
+	.nav ul, .nav-aside { column-gap: 14px; }
 	.nav-fb-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
 
@@ -121,8 +121,9 @@ p { margin: 0; text-wrap: pretty; }
 .slides img { grid-area: 1 / 1; width: 100%; aspect-ratio: 900 / 425; object-fit: cover; opacity: 0; transition: opacity 900ms ease-in-out; }
 .slides img:first-child { object-position: top; }
 .slides img.is-on { opacity: 1; }
-.dots { display: flex; justify-content: center; gap: 4px; margin-top: 14px; }
-.dots button { width: 28px; height: 28px; padding: 0; border: 0; background: none; cursor: pointer; }
+/* Small diamonds on 44 px buttons, so a thumb can hit them; the margin is trimmed to match */
+.dots { display: flex; justify-content: center; margin-top: 6px; }
+.dots button { width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
 .dots button::before { content: ""; display: block; width: 10px; height: 10px; margin: auto; border: 1px solid var(--ink); transform: rotate(45deg); transition: background-color 200ms ease-out; }
 .dots button[aria-current="true"]::before { background: var(--red); border-color: var(--red); }
 .dots button:hover::before { background: var(--ink); }
@@ -262,14 +263,16 @@ p { margin: 0; text-wrap: pretty; }
 .wrap-narrow { max-width: 1000px; }
 
 /* Gallery: one column on phones. On wider screens wide signs take the whole row
-   and the rest pair up in equal mounts (contain, so no sign loses letters). */
+   and the rest pair up in equal mounts (contain, so no sign loses letters).
+   Plates fill in markup order (no dense packing), so the Tab key meets them as the eye does;
+   a lone paired plate between two wide ones leaves a gap beside it. */
 .gallery { display: grid; gap: 36px; align-items: start; }
 .plate { margin: 0; }
 .plate .frame { padding: 5px; outline-offset: 3px; }
 .plate img { width: 100%; }
 .plate figcaption, .photo-note { margin-top: 14px; text-align: center; font-style: italic; color: var(--ink-soft); }
 @media (min-width: 761px) {
-	.gallery { grid-template-columns: 1fr 1fr; grid-auto-flow: row dense; gap: 48px 40px; }
+	.gallery { grid-template-columns: 1fr 1fr; gap: 48px 40px; }
 	.plate-wide { grid-column: 1 / -1; }
 	.plate:not(.plate-wide) img { aspect-ratio: 16 / 9; object-fit: contain; }
 }
