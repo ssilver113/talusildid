@@ -6,103 +6,13 @@
 		<meta name="description" content="Eestis on ilus traditsioon paigutada oma talu või suvekodu väravasse kohanimele vastav talusilt või viit. Valmistan erinevaid silte ja teen ka eritellimusi.">
 		<meta name="keywords" content="puit,talusildid,viidad,puutöö,fassaadisildid,seinasildid,juhtmärgid,tänavasildid,hotellisildid,puhkemajasildid,puidustmööbel,lastemööbel,taburetid,pingid,talu,talud,saun,saunasildid,puu,lakitud,peitsitud,freesitud,värvitud,aiamööbel,puustuudio,tehas,puutehas,käsitöö,hoonesildid,freesimine,peits,värv,õli,tõrvaõli,mänd,männilaud,suvekodu,talu,talud,küttepuud,sööglaud,diivanilaud,logod">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/header.css">
-		<style>
-			body {
-				background-image: url(images/bg3.webp);
-			}
-			
-			#body {
-				background-color: #f3f3f3;
-				max-width: 900px;
-				width: 100%
-				margin:auto;
-				margin-left: auto;
-				margin-right: auto;
-				font-family: Tahoma;
-				font-size: 14px;
-				text-align:center;
-			}
-			
-			#welcome_image {
-				width: 97%;
-			}
-			
-			#body_text {
-				width: 90%;
-				color: #333333;
-				text-align: center;
-				margin: auto;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			
-			a {
-			 color:blue;
-			 //font-weight: bold;
-			}
-			
-			a:hover {
-				color:crimson;
-			}
-			
-			#div1 { width: 100%;display:block; }
-			#div1 div { width:100%;height:auto;display:block;clear:both;}
-			#div1 div img {display:block;float: right;}
-			
-			.customHr {
-				width: 95%
-				font-size: 1px;
-				color: rgba(0, 0, 0, 0);
-				line-height: 1px;
+		<meta name="theme-color" content="#eff0eb" media="(prefers-color-scheme: light)">
+		<meta name="theme-color" content="#151a17" media="(prefers-color-scheme: dark)">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap">
+		<link rel="stylesheet" href="css/site.css">
 
-				background-color: black;
-				margin-top: 20px;
-				margin-bottom: 20px;
-				}
-						
-			#styles {
-				display: inline-block;
-			}
-			
-			#image-examples {
-				max-width: 277px;
-				display: inline-block;
-				float: left;
-				margin-right: 20px;
-				margin-bottom: 5px;
-			}
-			
-			@media (max-width: 500px) {
-				#image-examples {
-					float: none;
-					margin-right: 0;
-				}
-			}
-			
-			.style-example {
-				margin-top: 12px;
-				border-style: solid;
-				border-width: 1px;
-				border-color: gray;
-			}
-			
-			#other {
-				min-height: 220px;
-			}
-			
-			.text-left {
-				text-align: left;
-				min-width: 50px;
-			}
-			
-			.img2 {
-				float: right;
-			}
-			
-			b
-		</style>
-		
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9827184-2"></script>
 		<script>
@@ -114,142 +24,169 @@
 		</script>
 	</head>
 	<body>
-		<header class="site-header">
-			<a class="site-logo" href="index.html"><img src="images/header.webp" width="378" height="70" alt="Talusildid - avaleht"></a>
-			<nav class="site-nav" aria-label="Peamenüü">
-				<ul>
-					<li><a href="index.html" aria-current="page">Info</a></li>
-					<li><a href="naited.html">Näited</a></li>
-				</ul>
-			</nav>
-			<a class="site-facebook" href="https://www.facebook.com/talusildid.net/" aria-label="Talusildid Facebookis"><img src="images/icon_facebook.webp" width="38" height="38" alt=""></a>
-		</header>
-		<div id="body">
-            <div id="fb-root"></div>
-            <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = 'https://connect.facebook.net/et_EE/sdk.js#xfbml=1&version=v2.12&appId=523712384465007';
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
-			<img id="welcome_image" src="images/talusildid_welcome.webp" style="margin-top:12px; margin-bottom: 10px;" alt="teretulemast talusiltide lehele"/>
-			<div id="body_text">
-				<h1 style="font-size: medium;">Käsitööna valmistatud puidust talusildid</h1>
+		<a class="skip" href="#sisu">Liigu sisu juurde</a>
 
-				<p>Eestis on ilus traditsioon paigutada oma talu või suvekodu väravasse kohanimele vastav talusilt või viit.</p>
-				<p>Valmistan erineva tehnoloogiaga puidust silte.</p>
-				<div class="customHr">.</div>
-
-				<p>Siltide valmistamise stiilid</p>
-	
-				<div id="styles">
-					<div id="image-examples">			
-						<a href="naited.html" aria-label="põdrakünka näide">
-							<img src="images/podrakunka_style.webp" width="277px" alt="stiilinäide Põdrakünka" class="style-example" />
-						</a>					
-						<a href="naited.html" aria-label="uuepere näide">
-							<img src="images/uuepere_style.webp" width="277px" alt="stiilinäide Uuepere" class="style-example" />
-						</a>	
-						<a href="naited.html" aria-label="padussoo talu näide" />
-							<img src="images/padussoo_style.webp" width="277px" alt="stiilinäide Padussoo Talu" class="style-example" />
-						</a>
-						<a href="naited.html" aria-label="liiduvere näide">
-							<img src="images/Liiduvere-small.webp" width="277px" alt="stiilinäide Liiduvere" class="style-example" />
-						</a>
-						<a href="naited.html" aria-label="rätsepa näide">
-							<img src="images/ratsepa_style.webp" width="277px" alt="stiilinäide Rätsepa" class="style-example" />
-						</a>
-					</div>
-	
-					<p class="text-left">
-						1. <b>PÕDRAKÜNKA</b> stiil - tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga.
-					</p>
-					
-					<p class="text-left">
-						2. <b>UUEPERE TALU</b> stiil - tähed paksusega 18mm eraldi välja freesitud, töödeldud musta emailvärviga ja kinnitatud tihvtnaeltega plangule.
-					</p>
-					
-					<p class="text-left">
-						3. <b>PADUSSOO TALU</b> stiil - tähed paksusega 18mm eraldi välja freesitud, töödeldud musta emailvärviga ja kinnitatud tihvtnaeltega 30mm paksusele tammeplangule.
-					</p>
-					
-					<p class="text-left">
-						4. <b>LIIDUVERE</b> stiil - tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga, plank põletatud gaasilambiga.
-					</p>
-					
-					<p class="text-left">
-						5. <b>RÄTSEPA TALU</b> stiil - tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga. Valmistatud 30 mm <u>saareplangu</u> peale.
-					</p>
-					
-					<p class="text-left">
-						Kõik sildid on töödeldud kahekordselt ilmastikukindla värvitu lakiga ("REMMERS LASUR").
-						
-						Aastas korra soovitatav hooldada (müüakse ESPAKIS). 
-					</p>
-					
-					<p class="text-left">
-						"REMMERS LASUR"-i asemel võimalik kasutada valmistamisel ka heledat tõrvaõli (tõmbub aja möödudes halliks).
-					</p>
-				</div>
-				
-				<div class="customHr">.</div>
-				
-				<p>Standardsed mõõdud: tähe kõrgus 140 mm, laua laius u. 200-250 mm.</p>
-				<p>Valikus erineva suurusega trüki- ja kirjatähed ning numbrid kas peitsitult või värvitult. <a href="tahed.html" aria-label="tähtede näidised">Tähtede näidised</a>. Tähtede suuruse muutmisest tulenevalt võimalik muuta kogu sildi mõõtu vastavalt kliendi soovile.</p>
-				<p>Üldjuhul kasutan servamata tamme- või kuuseplanku laiusega  u. 200-300mm.</p>
-				<p/>Võimalikud eritellimused, erinevad kirjastiilid (n. "Dannebrog", "NEPTUN") jne.	</p>
-				<p>Tootmine Läänemaal. Transport pakiautomaati, cargobussiga või cargokulleriga üle Eesti!</p>
-				
-
-				
-				<div class="customHr">.</div>
-				
-				<p><strong>Hinnakiri</strong></p>
-				<p>"PÕDRAKÜNKA" stiil - 90 €</p>
-				<p>"UUEPERE TALU" stiil - 100 €</p>
-				<p>"PADUSSOO TALU" stiil - 110 € </p>
-				<p>"LIIDUVERE" stiil - 95 € </p>
-				<p>"RÄTSEPA TALU" stiil - 110 € </p>
-				<p>Võimalik tellida kliendi enda väljavalitud kirjastiilis / fontiga silte.</p>
-				<p>Eritööde puhul hind kokkuleppel.</p>
-				
-				<div class="customHr">.</div>
-
-				<div id="other">
-					<div style="margin: 0px 30px; text-align: right;"> 
-						<a href="moobel.html" aria-label="mööbel"><img style="float:right; margin-left: 10px;" src="images/moobel3.webp" alt="mööbel"/></a>
-						<a href="moobel.html" aria-label="tool"><img style="float:right; margin-left: 10px; height: 107px; border: 1px solid #283747;" src="images/tool2.webp" alt="tool" /></a>
-						<span style="padding-right:10px;"> 
-							Lisaks valmistan ka söögi- ja diivanilaudu ning lastele <a href="moobel.html">aiamööblit</a>. 
-						</span> 
-						<br>
-						<span style="padding-right:14px;">Kokkuleppel võimalikud ka muud puidust eritellimustööd.
-						</span>
-					</div> 
-					<div style="clear:right; height:10px;"></div>
-					<div style="clear:right; margin: 0px 30px; text-align: right;">
-						<a href="kuttepuud.html" aria-label="küttepuud"><img style="float:right; margin-left: 10px; height: 96px; border: 1px solid #283747;" src="images/kuttepuud1.webp" alt="küttepuud"/></a>
-						<a href="kuttepuud.html" aria-label="küttepuud"><img style="float:right; margin-left: 10px;" src="images/kuttepuud3.webp" alt="küttepuud" /></a>
-						<span style="padding-right:0px;">
-							Müügil kuivad <a href="kuttepuud.html">küttepuud</a>, sanglepp ja hall lepp, 40L võrgus (30cm), lahtiselt 40cm, 50cm.
-						</span>
-						<br>
-						<span style="margin-right: 5px;">
-							Küttepuude transport Läänemaa, Harjumaa, Raplamaa ning Pärnumaa piires. 
-						</span>
-					</div>
-				</div>
-				
-				<div class="customHr">.</div>
-
-				<strong>Kontakt</strong><br>
-				Tel. 503 2972<br>
-				<a href="mailto:talusildid@gmail.com" aria-label="email">talusildid@gmail.com</a>
-                <div style="margin-top: 10px;">
-                    <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2Ftalusildid.net%2F&width=122&layout=button&action=like&size=large&show_faces=true&share=true&height=65&appId=523712384465007" width="122" height="65" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" title="facebook-i jagamise nupud"></iframe>
-                </div>
+		<header class="top">
+			<div class="wrap">
+				<a class="wordmark" href="index.html" aria-label="Talusildid - avaleht">Talusildid</a>
+				<nav class="nav" aria-label="Peamenüü">
+					<ul>
+						<li><a href="index.html" aria-current="page">Info</a></li>
+						<li><a href="naited.html">Näited</a></li>
+						<li><a href="https://www.facebook.com/talusildid.net/">Facebook</a></li>
+					</ul>
+				</nav>
+				<a class="top-phone" href="tel:+3725032972">503 2972</a>
 			</div>
-		</div>
+		</header>
+
+		<main id="sisu">
+			<section class="hero wrap">
+				<h1 class="rise">Käsitööna valmistatud puidust <span>talusildid</span></h1>
+				<div class="hero-body">
+					<div class="hero-copy rise rise-2">
+						<p>Eestis on ilus traditsioon paigutada oma talu või suvekodu väravasse kohanimele vastav talusilt või viit. Valmistan erineva tehnoloogiaga puidust silte.</p>
+						<div class="hero-actions">
+							<a class="btn btn-primary" href="naited.html">Vaata näiteid</a>
+							<a class="btn btn-ghost" href="#kontakt">Võta ühendust</a>
+						</div>
+					</div>
+					<figure class="hero-photo rise rise-3">
+						<img src="images/naited/kukepesa.webp" width="1744" height="1039" fetchpriority="high" alt="Servamata laudast talusilt Kukepesa, freesitud kirja ja kukepildiga">
+					</figure>
+				</div>
+			</section>
+
+			<section class="section wrap" aria-labelledby="stiilid">
+				<h2 class="section-title" id="stiilid">Siltide valmistamise stiilid</h2>
+				<ol class="styles">
+					<li class="style">
+						<a href="naited.html"><img src="images/naited/PÕDRAKÜNKA3.webp" width="1250" height="420" loading="lazy" decoding="async" alt="Stiilinäide Põdrakünka"></a>
+						<div>
+							<div class="style-head">
+								<h3>Põdrakünka</h3>
+								<span class="price">90 €</span>
+							</div>
+							<p>Tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="naited.html"><img src="images/naited/uuepere2.webp" width="651" height="128" loading="lazy" decoding="async" alt="Stiilinäide Uuepere talu"></a>
+						<div>
+							<div class="style-head">
+								<h3>Uuepere talu</h3>
+								<span class="price">100 €</span>
+							</div>
+							<p>Tähed paksusega 18 mm eraldi välja freesitud, töödeldud musta emailvärviga ja kinnitatud tihvtnaeltega plangule.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="naited.html"><img src="images/naited/padussoo.webp" width="2088" height="535" loading="lazy" decoding="async" alt="Stiilinäide Padussoo talu"></a>
+						<div>
+							<div class="style-head">
+								<h3>Padussoo talu</h3>
+								<span class="price">110 €</span>
+							</div>
+							<p>Tähed paksusega 18 mm eraldi välja freesitud, töödeldud musta emailvärviga ja kinnitatud tihvtnaeltega 30 mm paksusele tammeplangule.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="naited.html"><img src="images/Liiduvere-small.webp" width="1005" height="238" loading="lazy" decoding="async" alt="Stiilinäide Liiduvere"></a>
+						<div>
+							<div class="style-head">
+								<h3>Liiduvere</h3>
+								<span class="price">95 €</span>
+							</div>
+							<p>Tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga, plank põletatud gaasilambiga.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="naited.html"><img src="images/ratsepa_style.webp" width="1102" height="340" loading="lazy" decoding="async" alt="Stiilinäide Rätsepa talu"></a>
+						<div>
+							<div class="style-head">
+								<h3>Rätsepa talu</h3>
+								<span class="price">110 €</span>
+							</div>
+							<p>Tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga. Valmistatud 30 mm saareplangu peale.</p>
+						</div>
+					</li>
+				</ol>
+
+				<div class="notes">
+					<div>
+						<h3>Viimistlus</h3>
+						<p>Kõik sildid on töödeldud kahekordselt ilmastikukindla värvitu lakiga („REMMERS LASUR“). Aastas korra soovitatav hooldada (müüakse ESPAKIS).</p>
+						<p>„REMMERS LASUR“-i asemel võimalik kasutada valmistamisel ka heledat tõrvaõli (tõmbub aja möödudes halliks).</p>
+					</div>
+					<div>
+						<h3>Eritellimused</h3>
+						<p>Võimalik tellida kliendi enda väljavalitud kirjastiilis / fontiga silte.</p>
+						<p>Eritööde puhul hind kokkuleppel.</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="section band" aria-labelledby="moodud">
+				<div class="wrap">
+					<h2 class="section-title" id="moodud">Mõõdud ja materjal</h2>
+					<dl class="facts">
+						<div>
+							<dt>Tähe kõrgus</dt>
+							<dd>140 mm</dd>
+						</div>
+						<div>
+							<dt>Laua laius</dt>
+							<dd>u. 200-250 mm</dd>
+						</div>
+						<div>
+							<dt>Materjal</dt>
+							<dd class="facts-text">Servamata tamme- või kuuseplank laiusega u. 200-300 mm</dd>
+						</div>
+					</dl>
+					<div class="details">
+						<p>Valikus erineva suurusega trüki- ja kirjatähed ning numbrid kas peitsitult või värvitult. <a href="tahed.html">Tähtede näidised</a>.</p>
+						<p>Tähtede suuruse muutmisest tulenevalt võimalik muuta kogu sildi mõõtu vastavalt kliendi soovile.</p>
+						<p>Võimalikud eritellimused, erinevad kirjastiilid (n. „Dannebrog“, „NEPTUN“) jne.</p>
+						<p>Tootmine Läänemaal. Transport pakiautomaati, cargobussiga või cargokulleriga üle Eesti!</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="section wrap" aria-labelledby="muud">
+				<h2 class="section-title" id="muud">Lisaks siltidele</h2>
+				<div class="tiles">
+					<a class="tile" href="moobel.html">
+						<div class="tile-photo">
+							<img src="images/naited/taburetid_jalgadega.webp" width="1079" height="809" loading="lazy" decoding="async" alt="Puidust taburetid">
+						</div>
+						<h3>Mööbel</h3>
+						<p>Lisaks valmistan ka söögi- ja diivanilaudu ning lastele aiamööblit. Kokkuleppel võimalikud ka muud puidust eritellimustööd.</p>
+						<span class="tile-link">Vaata mööblit</span>
+					</a>
+					<a class="tile" href="kuttepuud.html">
+						<div class="tile-photo">
+							<img src="images/naited/kuttepuud2.webp" width="1014" height="760" loading="lazy" decoding="async" alt="Kuivad küttepuud võrkudes">
+						</div>
+						<h3>Küttepuud</h3>
+						<p>Müügil kuivad küttepuud, sanglepp ja hall lepp, 40L võrgus (30 cm), lahtiselt 40 cm, 50 cm. Küttepuude transport Läänemaa, Harjumaa, Raplamaa ning Pärnumaa piires.</p>
+						<span class="tile-link">Vaata küttepuid</span>
+					</a>
+				</div>
+			</section>
+
+			<section class="section band" id="kontakt" aria-labelledby="kontakt-pealkiri">
+				<div class="wrap contact">
+					<img src="images/talusildid_welcome.webp" width="900" height="584" loading="lazy" decoding="async" alt="Talusildid silt punasel laudseinal">
+					<div>
+						<h2 class="section-title" id="kontakt-pealkiri">Kontakt</h2>
+						<a class="contact-phone" href="tel:+3725032972">Tel. 503 2972</a>
+						<ul class="contact-list">
+							<li><a href="mailto:talusildid@gmail.com">talusildid@gmail.com</a></li>
+							<li><a href="https://www.facebook.com/talusildid.net/">Talusildid Facebookis</a></li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</main>
 	</body>
 </html>
