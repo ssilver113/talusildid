@@ -3,6 +3,28 @@
    Fraktur only for the wordmark (the shop routes Fraktur signs too), EB Garamond for the rest.
    Shape rule: everything square; photos sit in a thin double frame.
    Used by every page; the masthead and contact band markup is copied into each one. */
+
+/* Self-hosted fonts (from Google Fonts, OFL). The latin files are preloaded in each page's <head>
+   so they are ready before first paint; latin-ext (š, ž…) only loads if a page uses it. */
+@font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("../fonts/eb-garamond-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("../fonts/eb-garamond-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400 600; font-display: swap; src: url("../fonts/eb-garamond-italic-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400 600; font-display: swap; src: url("../fonts/eb-garamond-italic-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "UnifrakturMaguntia"; font-style: normal; font-weight: 400; font-display: swap; src: url("../fonts/unifrakturmaguntia-latin.woff2") format("woff2"); }
+
+/* Georgia tuned to the real fonts' width and line metrics (measured in the browser), so text keeps
+   its wrapping and position if the fallback ever paints before the font arrives. */
+@font-face { font-family: "EB Garamond Fallback"; font-style: normal; src: local("Georgia"); size-adjust: 85.75%; ascent-override: 117.8%; descent-override: 35%; line-gap-override: 0%; }
+@font-face { font-family: "EB Garamond Fallback"; font-style: italic; src: local("Georgia Italic"); size-adjust: 83.76%; ascent-override: 120.6%; descent-override: 35.8%; line-gap-override: 0%; }
+@font-face { font-family: "UnifrakturMaguntia Fallback"; src: local("Georgia"); size-adjust: 93.1%; ascent-override: 83.8%; descent-override: 26.9%; line-gap-override: 0%; }
+
+/* Page changes crossfade instead of cutting (Chrome, Edge, Safari; others just cut) */
+@view-transition { navigation: auto; }
+::view-transition-group(root) { animation-duration: 0.2s; }
+@media (prefers-reduced-motion: reduce) {
+	@view-transition { navigation: none; }
+}
+
 :root {
 	--paper: #f1e8d4;
 	--paper-2: #e6d9bd;
@@ -17,11 +39,14 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Always reserve the scrollbar's space, so short pages (Küttepuud) don't shift sideways against long ones */
+html { scrollbar-gutter: stable; }
+
 body {
 	margin: 0;
 	background: var(--paper);
 	color: var(--ink);
-	font-family: "EB Garamond", Georgia, serif;
+	font-family: "EB Garamond", "EB Garamond Fallback", Georgia, serif;
 	font-size: 1.25rem;
 	line-height: 1.55;
 }
@@ -49,7 +74,7 @@ p { margin: 0; text-wrap: pretty; }
 /* Masthead */
 .masthead { text-align: center; padding-top: 28px; }
 .masthead .wrap { border-bottom: 3px double var(--ink); padding-bottom: 14px; }
-.wordmark { display: inline-block; font-family: "UnifrakturMaguntia", serif; font-size: clamp(3rem, 2rem + 4vw, 5rem); line-height: 1; text-decoration: none; }
+.wordmark { display: inline-block; font-family: "UnifrakturMaguntia", "UnifrakturMaguntia Fallback", serif; font-size: clamp(3rem, 2rem + 4vw, 5rem); line-height: 1; text-decoration: none; }
 .nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 28px; margin: 14px 0 0; padding: 0; list-style: none; font-size: 1.1875rem; }
 .nav a { text-decoration: none; font-variant-caps: all-small-caps; letter-spacing: 0.1em; }
 .nav a:hover { text-decoration: underline; }
