@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="et">
+	<head>
+		<meta charset="UTF-8">
+		<title>Näidis: Töökoda :: Talusildid</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="robots" content="noindex">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap">
+		<style>
+			/* Direction C: Photo-led workshop.
+			   Dark walnut ground so the varnished signs glow; amber accent like lacquered pine.
+			   Condensed workshop lettering for headings. Shape rule: near-square (3px) everywhere. */
+			:root {
+				--bg: #1b1410;
+				--bg-2: #261c16;
+				--text: #f2e8db;
+				--soft: #c7b6a3;
+				--line: #3e3027;
+				--amber: #e6a849;
+				--amber-hover: #f0bb66;
+				--on-amber: #1b1410;
+				--radius: 3px;
+				--wrap: 1240px;
+				--gutter: clamp(16px, 4vw, 48px);
+				--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+				color-scheme: dark;
+			}
+
+			*, *::before, *::after { box-sizing: border-box; }
+
+			body {
+				margin: 0;
+				background: var(--bg);
+				color: var(--text);
+				font-family: "Barlow", system-ui, sans-serif;
+				font-size: 1.0625rem;
+				line-height: 1.6;
+			}
+
+			img { display: block; max-width: 100%; height: auto; }
+			a { color: inherit; text-underline-offset: 3px; }
+			a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+			h1, h2, h3 { margin: 0; font-family: "Barlow Condensed", sans-serif; font-weight: 800; line-height: 0.98; text-transform: uppercase; letter-spacing: 0.005em; text-wrap: balance; }
+			p { margin: 0; text-wrap: pretty; }
+
+			.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+
+			.skip { position: absolute; left: var(--gutter); top: -100px; padding: 8px 14px; background: var(--amber); color: var(--on-amber); border-radius: var(--radius); z-index: 10; }
+			.skip:focus { top: 12px; }
+
+			/* Header sits over the hero photo */
+			.top { position: absolute; inset: 0 0 auto; z-index: 2; }
+			.top .wrap { display: flex; align-items: center; gap: 12px 36px; min-height: 76px; }
+			.wordmark { font-family: "Barlow Condensed", sans-serif; font-weight: 800; font-size: 1.75rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+			.nav ul { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; }
+			.nav a { font-weight: 600; text-decoration: underline 2px transparent; text-underline-offset: 7px; transition: text-decoration-color 150ms ease-out; }
+			.nav a:hover { text-decoration-color: rgb(242 232 219 / 0.5); }
+			.nav a[aria-current="page"] { text-decoration-color: var(--amber); }
+			.top-phone { margin-left: auto; font-weight: 600; text-decoration: none; white-space: nowrap; }
+			.top-phone:hover { color: var(--amber); }
+			@media (max-width: 640px) {
+				.top .wrap { flex-wrap: wrap; padding-block: 14px 6px; min-height: 0; }
+				.nav { order: 3; width: 100%; }
+			}
+
+			/* Buttons */
+			.btn {
+				display: inline-flex; align-items: center; justify-content: center;
+				min-height: 52px; padding: 12px 26px;
+				border: 2px solid transparent; border-radius: var(--radius);
+				font: inherit; font-family: "Barlow Condensed", sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+				line-height: 1.1; white-space: nowrap; text-decoration: none;
+				transition: background-color 150ms ease-out, border-color 150ms ease-out, transform 100ms ease-out;
+			}
+			.btn:active { transform: translateY(1px); }
+			.btn-amber { background: var(--amber); color: var(--on-amber); }
+			.btn-amber:hover { background: var(--amber-hover); }
+			.btn-line { border-color: var(--text); }
+			.btn-line:hover { background: rgb(242 232 219 / 0.12); }
+
+			/* Full-bleed hero */
+			.hero { position: relative; min-height: min(100dvh, 900px); display: flex; align-items: flex-end; isolation: isolate; overflow: hidden; }
+			.hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 40%; z-index: -2; }
+			.hero::before {
+				content: ""; position: absolute; inset: 0; z-index: -1;
+				background:
+					linear-gradient(90deg, rgb(27 20 16 / 0.92) 0%, rgb(27 20 16 / 0.7) 34%, rgb(27 20 16 / 0.05) 70%),
+					linear-gradient(0deg, rgb(27 20 16 / 0.85) 0%, transparent 38%),
+					linear-gradient(180deg, rgb(27 20 16 / 0.6) 0%, transparent 18%);
+			}
+			@media (max-width: 760px) {
+				.hero::before { background: linear-gradient(0deg, rgb(27 20 16 / 0.96) 0%, rgb(27 20 16 / 0.82) 55%, rgb(27 20 16 / 0.45) 100%); }
+			}
+			.hero .wrap { width: 100%; padding-block: 140px clamp(48px, 7vw, 96px); }
+			.hero h1 { font-size: clamp(3rem, 1.2rem + 6vw, 6.5rem); max-width: 9em; }
+			.hero h1 span { color: var(--amber); }
+			.hero p { margin-top: 22px; max-width: 38ch; font-size: 1.1875rem; color: var(--soft); }
+			.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+			@media (prefers-reduced-motion: no-preference) {
+				.hero > img { animation: settle 1600ms var(--ease-out) both; }
+				@keyframes settle { from { transform: scale(1.06); } }
+				.rise { animation: rise 800ms var(--ease-out) 150ms both; }
+				@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+			}
+
+			.section { padding-block: clamp(64px, 8vw, 120px); }
+			.section-title { font-size: clamp(2.5rem, 1.4rem + 3.6vw, 4.5rem); margin-bottom: clamp(32px, 4vw, 56px); }
+
+			/* Styles: big photos, name and price set large beside them */
+			.styles { margin: 0; padding: 0; list-style: none; }
+			.style { display: grid; grid-template-columns: 8fr 4fr; gap: 20px 48px; align-items: end; padding-block: 36px; border-top: 1px solid var(--line); }
+			.style:first-child { border-top: 0; padding-top: 0; }
+			.style a { display: block; overflow: hidden; border-radius: var(--radius); }
+			.style img { width: 100%; transition: transform 700ms var(--ease-out); }
+			@media (hover: hover) { .style a:hover img { transform: scale(1.025); } }
+			.style h3 { font-size: clamp(2rem, 1.4rem + 1.8vw, 2.875rem); }
+			.price { display: block; margin-top: 6px; font-family: "Barlow Condensed", sans-serif; font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem); font-weight: 700; color: var(--amber); }
+			.style p { margin-top: 14px; color: var(--soft); }
+			@media (max-width: 760px) { .style { grid-template-columns: 1fr; } }
+
+			.notes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 56px; margin-top: 48px; padding-top: 36px; border-top: 1px solid var(--line); }
+			.notes h3 { font-size: 1.625rem; margin-bottom: 8px; }
+			.notes p { color: var(--soft); max-width: 58ch; }
+			.notes p + p { margin-top: 8px; }
+			@media (max-width: 760px) { .notes { grid-template-columns: 1fr; } }
+
+			/* Sizes on a darkened wood band */
+			.wood {
+				background:
+					linear-gradient(rgb(27 20 16 / 0.86), rgb(27 20 16 / 0.86)),
+					url(../../images/bg3.webp) center / 546px auto repeat;
+				border-block: 1px solid var(--line);
+			}
+			.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 48px; margin: 0 0 48px; }
+			.facts dt { font-weight: 600; color: var(--soft); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.875rem; }
+			.facts dd { margin: 6px 0 0; font-family: "Barlow Condensed", sans-serif; font-size: clamp(2.5rem, 1.6rem + 3vw, 4.25rem); font-weight: 800; line-height: 1; color: var(--amber); }
+			.facts dd.facts-text { font-size: clamp(1.375rem, 1.1rem + 1vw, 1.875rem); font-weight: 700; color: var(--text); line-height: 1.15; }
+			.details { columns: 2; column-gap: 56px; color: var(--soft); }
+			.details p { break-inside: avoid; margin-bottom: 14px; }
+			.details a { color: var(--amber); font-weight: 600; }
+			@media (max-width: 760px) { .facts { grid-template-columns: 1fr; } .details { columns: 1; } }
+
+			/* Other work: text set on the photo */
+			.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+			.tile { position: relative; display: flex; align-items: flex-end; min-height: 460px; overflow: hidden; border-radius: var(--radius); text-decoration: none; isolation: isolate; }
+			.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 700ms var(--ease-out); }
+			.tile::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgb(27 20 16 / 0.96) 0%, rgb(27 20 16 / 0.82) 45%, rgb(27 20 16 / 0.15) 85%); }
+			.tile-body { padding: 28px; }
+			.tile h3 { font-size: clamp(2.25rem, 1.6rem + 1.8vw, 3rem); }
+			.tile p { margin-top: 10px; color: var(--soft); max-width: 46ch; }
+			.tile-link { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--amber); }
+			@media (hover: hover) { .tile:hover img { transform: scale(1.04); } .tile:hover .tile-link { text-decoration: underline; } }
+			@media (max-width: 760px) { .tiles { grid-template-columns: 1fr; } .tile { min-height: 400px; } }
+
+			/* Contact */
+			.contact { display: grid; grid-template-columns: 1fr 1fr; align-items: center; background: var(--bg-2); }
+			.contact img { width: 100%; aspect-ratio: 900 / 425; object-fit: cover; object-position: top; }
+			.contact-body { padding: clamp(40px, 6vw, 88px) var(--gutter); align-self: center; }
+			.contact .section-title { margin-bottom: 20px; }
+			.contact-phone { display: inline-block; font-family: "Barlow Condensed", sans-serif; font-size: clamp(2.75rem, 1.8rem + 3.4vw, 4.5rem); font-weight: 800; line-height: 1; color: var(--amber); text-decoration: none; }
+			.contact-phone:hover { color: var(--amber-hover); }
+			.contact-list { margin: 22px 0 0; padding: 0; list-style: none; font-size: 1.1875rem; font-weight: 500; }
+			.contact-list li + li { margin-top: 6px; }
+			.contact-list a:hover { color: var(--amber); }
+			@media (max-width: 860px) { .contact { grid-template-columns: 1fr; } }
+
+			@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+		</style>
+	</head>
+	<body>
+		<a class="skip" href="#sisu">Liigu sisu juurde</a>
+
+		<header class="top">
+			<div class="wrap">
+				<a class="wordmark" href="../../index.html" aria-label="Talusildid - avaleht">Talusildid</a>
+				<nav class="nav" aria-label="Peamenüü">
+					<ul>
+						<li><a href="../../index.html" aria-current="page">Info</a></li>
+						<li><a href="../../naited.html">Näited</a></li>
+						<li><a href="https://www.facebook.com/talusildid.net/">Facebook</a></li>
+					</ul>
+				</nav>
+				<a class="top-phone" href="tel:+3725032972">Tel. 503 2972</a>
+			</div>
+		</header>
+
+		<main id="sisu">
+			<section class="hero">
+				<img src="../../images/naited/prangli_2.webp" width="1965" height="1681" fetchpriority="high" alt="Hulk valmis talusilte rohul ritta laotud, tagaplaanil küttepuud">
+				<div class="wrap rise">
+					<h1>Käsitööna valmistatud puidust <span>talusildid</span></h1>
+					<p>Eestis on ilus traditsioon paigutada oma talu või suvekodu väravasse kohanimele vastav talusilt või viit. Valmistan erineva tehnoloogiaga puidust silte.</p>
+					<div class="hero-actions">
+						<a class="btn btn-amber" href="../../naited.html">Vaata näiteid</a>
+						<a class="btn btn-line" href="#kontakt">Võta ühendust</a>
+					</div>
+				</div>
+			</section>
+
+			<section class="section wrap" aria-labelledby="stiilid">
+				<h2 class="section-title" id="stiilid">Siltide valmistamise stiilid</h2>
+				<ol class="styles">
+					<li class="style">
+						<a href="../../naited.html"><img src="../../images/naited/PÕDRAKÜNKA3.webp" width="1250" height="420" loading="lazy" decoding="async" alt="Stiilinäide Põdrakünka"></a>
+						<div>
+							<h3>Põdrakünka</h3>
+							<span class="price">90 €</span>
+							<p>Tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="../../naited.html"><img src="../../images/naited/uuepere2.webp" width="651" height="128" loading="lazy" decoding="async" alt="Stiilinäide Uuepere talu"></a>
+						<div>
+							<h3>Uuepere talu</h3>
+							<span class="price">100 €</span>
+							<p>Tähed paksusega 18 mm eraldi välja freesitud, töödeldud musta emailvärviga ja kinnitatud tihvtnaeltega plangule.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="../../naited.html"><img src="../../images/naited/padussoo.webp" width="2088" height="535" loading="lazy" decoding="async" alt="Stiilinäide Padussoo talu"></a>
+						<div>
+							<h3>Padussoo talu</h3>
+							<span class="price">110 €</span>
+							<p>Tähed paksusega 18 mm eraldi välja freesitud, töödeldud musta emailvärviga ja kinnitatud tihvtnaeltega 30 mm paksusele tammeplangule.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="../../naited.html"><img src="../../images/naited/Liiduvere.webp" width="2215" height="541" loading="lazy" decoding="async" alt="Stiilinäide Liiduvere"></a>
+						<div>
+							<h3>Liiduvere</h3>
+							<span class="price">95 €</span>
+							<p>Tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga, plank põletatud gaasilambiga.</p>
+						</div>
+					</li>
+					<li class="style">
+						<a href="../../naited.html"><img src="../../images/naited/RATSEPA_cropped.webp" width="2113" height="664" loading="lazy" decoding="async" alt="Stiilinäide Rätsepa talu"></a>
+						<div>
+							<h3>Rätsepa talu</h3>
+							<span class="price">110 €</span>
+							<p>Tähed freesitud u. 10 mm sügavuselt ja töödeldud musta emailvärviga. Valmistatud 30 mm saareplangu peale.</p>
+						</div>
+					</li>
+				</ol>
+				<div class="notes">
+					<div>
+						<h3>Viimistlus</h3>
+						<p>Kõik sildid on töödeldud kahekordselt ilmastikukindla värvitu lakiga („REMMERS LASUR“). Aastas korra soovitatav hooldada (müüakse ESPAKIS).</p>
+						<p>„REMMERS LASUR“-i asemel võimalik kasutada valmistamisel ka heledat tõrvaõli (tõmbub aja möödudes halliks).</p>
+					</div>
+					<div>
+						<h3>Eritellimused</h3>
+						<p>Võimalik tellida kliendi enda väljavalitud kirjastiilis / fontiga silte.</p>
+						<p>Eritööde puhul hind kokkuleppel.</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="section wood" aria-labelledby="moodud">
+				<div class="wrap">
+					<h2 class="section-title" id="moodud">Mõõdud ja materjal</h2>
+					<dl class="facts">
+						<div><dt>Tähe kõrgus</dt><dd>140 mm</dd></div>
+						<div><dt>Laua laius</dt><dd>u. 200-250 mm</dd></div>
+						<div><dt>Materjal</dt><dd class="facts-text">Servamata tamme- või kuuseplank laiusega u. 200-300 mm</dd></div>
+					</dl>
+					<div class="details">
+						<p>Valikus erineva suurusega trüki- ja kirjatähed ning numbrid kas peitsitult või värvitult. <a href="../../tahed.html">Tähtede näidised</a>.</p>
+						<p>Tähtede suuruse muutmisest tulenevalt võimalik muuta kogu sildi mõõtu vastavalt kliendi soovile.</p>
+						<p>Võimalikud eritellimused, erinevad kirjastiilid (n. „Dannebrog“, „NEPTUN“) jne.</p>
+						<p>Tootmine Läänemaal. Transport pakiautomaati, cargobussiga või cargokulleriga üle Eesti!</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="section wrap" aria-labelledby="muud">
+				<h2 class="section-title" id="muud">Lisaks siltidele</h2>
+				<div class="tiles">
+					<a class="tile" href="../../moobel.html">
+						<img src="../../images/naited/taburetid_jalgadega.webp" width="1079" height="809" loading="lazy" decoding="async" alt="Puidust taburetid">
+						<div class="tile-body">
+							<h3>Mööbel</h3>
+							<p>Lisaks valmistan ka söögi- ja diivanilaudu ning lastele aiamööblit. Kokkuleppel võimalikud ka muud puidust eritellimustööd.</p>
+							<span class="tile-link">Vaata mööblit</span>
+						</div>
+					</a>
+					<a class="tile" href="../../kuttepuud.html">
+						<img src="../../images/naited/kuttepuud2.webp" width="1014" height="760" loading="lazy" decoding="async" alt="Kuivad küttepuud võrkudes">
+						<div class="tile-body">
+							<h3>Küttepuud</h3>
+							<p>Müügil kuivad küttepuud, sanglepp ja hall lepp, 40L võrgus (30 cm), lahtiselt 40 cm, 50 cm. Küttepuude transport Läänemaa, Harjumaa, Raplamaa ning Pärnumaa piires.</p>
+							<span class="tile-link">Vaata küttepuid</span>
+						</div>
+					</a>
+				</div>
+			</section>
+
+			<section class="contact" id="kontakt" aria-labelledby="kontakt-pealkiri">
+				<img src="../../images/talusildid_welcome.webp" width="900" height="584" loading="lazy" decoding="async" alt="Talusildid silt punasel laudseinal">
+				<div class="contact-body">
+					<h2 class="section-title" id="kontakt-pealkiri">Kontakt</h2>
+					<a class="contact-phone" href="tel:+3725032972">Tel. 503 2972</a>
+					<ul class="contact-list">
+						<li><a href="mailto:talusildid@gmail.com">talusildid@gmail.com</a></li>
+						<li><a href="https://www.facebook.com/talusildid.net/">Talusildid Facebookis</a></li>
+					</ul>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>
