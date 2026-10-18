@@ -2,7 +2,7 @@
    An old farm calendar / letterpress print: paper grain, ink, one stamp red.
    Fraktur only for the wordmark (the shop routes Fraktur signs too), EB Garamond for the rest.
    Shape rule: everything square; photos sit in a thin double frame.
-   Used by index.html; other pages still use header.css until they are moved over. */
+   Used by every page; the masthead and contact band markup is copied into each one. */
 :root {
 	--paper: #f1e8d4;
 	--paper-2: #e6d9bd;
@@ -158,3 +158,41 @@ p { margin: 0; text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
 .flush-top { padding-top: 0; }
+
+/* Inner pages: a centred title block, then the work */
+.page-head { text-align: center; padding-block: clamp(36px, 5vw, 64px) clamp(36px, 5vw, 56px); }
+.page-head h1 { font-size: clamp(2.5rem, 1.5rem + 3.4vw, 4rem); margin-top: 22px; }
+.page-head p { max-width: 44ch; margin: 18px auto 0; font-size: 1.375rem; font-style: italic; color: var(--ink-soft); }
+.wrap-narrow { max-width: 1000px; }
+
+/* Gallery: one column on phones. On wider screens wide signs take the whole row
+   and the rest pair up in equal mounts (contain, so no sign loses letters). */
+.gallery { display: grid; gap: 36px; align-items: start; }
+.plate { margin: 0; }
+.plate .frame { padding: 5px; outline-offset: 3px; }
+.plate img { width: 100%; }
+.plate figcaption, .photo-note { margin-top: 14px; text-align: center; font-style: italic; color: var(--ink-soft); }
+@media (min-width: 761px) {
+	.gallery { grid-template-columns: 1fr 1fr; grid-auto-flow: row dense; gap: 48px 40px; }
+	.plate-wide { grid-column: 1 / -1; }
+	.plate:not(.plate-wide) img { aspect-ratio: 16 / 9; object-fit: contain; background: var(--paper-2); }
+}
+.to-top { margin-top: 56px; text-align: center; font-style: italic; }
+.to-top a { color: var(--red); }
+
+/* Furniture specs: finish note and a two-cell ruled table */
+.spec { max-width: 760px; margin: 0 auto clamp(48px, 6vw, 72px); text-align: center; }
+.spec h2 { font-size: 1.375rem; font-variant-caps: all-small-caps; letter-spacing: 0.08em; margin-bottom: 6px; }
+.spec p { color: var(--ink-soft); }
+.spec p + h2 { margin-top: 32px; }
+.spec .facts { margin: 14px 0 0; }
+.spec .facts dd { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-variant-numeric: lining-nums; }
+.facts-note { margin-top: 10px; font-style: italic; font-size: 1.0625rem; }
+@media (min-width: 761px) { .facts-2 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 761px) {
+	.gallery-photos .plate:not(.plate-wide) img { aspect-ratio: 4 / 3; object-fit: cover; }
+	/* An odd photo out sits centred on the last row */
+	.gallery-photos .plate:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 20px); }
+	/* Sample sheets: pair up but keep the whole photo */
+	.gallery-uncropped .plate img { aspect-ratio: auto; }
+}

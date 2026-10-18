@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="et">
 	<head>
 		<meta charset="UTF-8">
@@ -6,43 +6,12 @@
 		<meta name="description" content="Eestis on ilus traditsioon paigutada oma talu või suvekodu väravasse kohanimele vastav talusilt. Valmistan silte, mis on enamuses valmistatud 25mm paksusest servamata männilauast. Sildid on töödeldud järgnevalt: tähed freesitud 7mm sügavuselt ning õlitatud seest tumeda tõrvaõliga, laud heleda tõrvaõliga.Võimalikud ka eritellimused.">
 		<meta name="keywords" content="puit,talusildid,viidad,puutöö,fassaadisildid,seinasildid,juhtmärgid,tänavasildid,hotellisildid,puhkemajasildid,puidustmööbel,lastemööbel,taburetid,pingid,talu,talud,saun,saunasildid,puu,lakitud,peitsitud,freesitud,värvitud,aiamööbel,puustuudio,tehas,puutehas,käsitöö,hoonesildid,freesimine,peits,värv,õli,tõrvaõli,mänd,männilaud,suvekodu,talu,talud,küttepuud,sööglaud,diivanilaud,logod">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="css/header.css">
-		<style>
-			body {
-				background-image: url(images/bg3.webp);
-			}
-			
-			#body {
-				background-color: #f3f3f3;
-				max-width: 900px;
-				width: 100%
-				margin:auto;
-				margin-left: auto;
-				margin-right: auto;
-				font-family: Tahoma;
-				font-size: 14px;
-				text-align:center;
+		<meta name="theme-color" content="#f1e8d4">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..600&family=UnifrakturMaguntia&display=swap">
+		<link rel="stylesheet" href="css/site.css">
 
-			}
-			
-			#esimenenaide {
-				width: 95%;
-				margin-top: 20px;
-			}
-			
-			.naited {
-				width: 95%;
-				margin-top: 10px;
-			}
-			
-			#nool {
-				display: block;
-				margin: auto;
-				margin-top: 25px;
-				padding-bottom: 25px;
-			}
-			
-		</style>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9827184-2"></script>
 		<script>
@@ -54,21 +23,47 @@
 		</script>
 	</head>
 	<body>
-		<header class="site-header">
-			<a class="site-logo" href="index.html"><img src="images/header.webp" width="378" height="70" alt="Talusildid - avaleht"></a>
-			<nav class="site-nav" aria-label="Peamenüü">
-				<ul>
-					<li><a href="index.html">Info</a></li>
-					<li><a href="naited.html">Näited</a></li>
-				</ul>
-			</nav>
-			<a class="site-facebook" href="https://www.facebook.com/talusildid.net/" aria-label="Talusildid Facebookis"><img src="images/icon_facebook.webp" width="38" height="38" alt=""></a>
-		</header>
-		<div id="body">
-			<img id="esimenenaide" src="images/naited/tahed11.webp" alt="tähtede näide" />
-			<img class="naited" src="images/naited/tahed21.webp" alt="tähtede näide 2" />
-			<a href="index.html"><img id="nool" src="images/nool.webp" alt="tagasi avalehele" /></a>
+		<a class="skip" href="#sisu">Liigu sisu juurde</a>
 
-		</div>
+		<header class="masthead">
+			<div class="wrap">
+				<a class="wordmark" href="index.html" aria-label="Talusildid - avaleht">Talusildid</a>
+				<nav class="nav" aria-label="Peamenüü">
+					<ul>
+						<li><a href="index.html">Info</a></li>
+						<li><a href="naited.html">Näited</a></li>
+						<li><a href="https://www.facebook.com/talusildid.net/">Facebook</a></li>
+						<li><a href="tel:+3725032972">Tel. 503 2972</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<main id="sisu">
+			<header class="page-head wrap">
+				<div class="orn" aria-hidden="true">❦</div>
+				<h1>Tähtede näidised</h1>
+				<p>Valikus erineva suurusega trüki- ja kirjatähed ning numbrid kas peitsitult või värvitult.</p>
+			</header>
+
+			<section class="section wrap wrap-narrow flush-top" aria-label="Tähtede näidised">
+				<div class="gallery gallery-uncropped">
+					<figure class="plate"><div class="frame"><img src="images/naited/tahed11.webp" width="651" height="530" decoding="async" alt="tähtede näide"></div></figure>
+					<figure class="plate"><div class="frame"><img src="images/naited/tahed21.webp" width="651" height="493" loading="lazy" decoding="async" alt="tähtede näide 2"></div></figure>
+				</div>
+			</section>
+
+			<section class="section band contact" id="kontakt" aria-labelledby="kontakt-pealkiri">
+				<div class="wrap">
+					<div class="orn" aria-hidden="true">❦</div>
+					<h2 class="section-title" id="kontakt-pealkiri">Kontakt</h2>
+					<a class="contact-phone" href="tel:+3725032972">Tel. 503 2972</a>
+					<ul class="contact-list">
+						<li><a href="mailto:talusildid@gmail.com">talusildid@gmail.com</a></li>
+						<li><a href="https://www.facebook.com/talusildid.net/">Talusildid Facebookis</a></li>
+					</ul>
+				</div>
+			</section>
+		</main>
 	</body>
 </html>
