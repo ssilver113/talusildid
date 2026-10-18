@@ -127,6 +127,11 @@ p { margin: 0; text-wrap: pretty; }
 .dots button[aria-current="true"]::before { background: var(--red); border-color: var(--red); }
 .dots button:hover::before { background: var(--ink); }
 .dots button:focus-visible { outline: 2px solid var(--red); outline-offset: 0; }
+/* A slide that failed to load keeps the frame's size but never shows its broken-image box; with fewer
+   than two slides left, or no script to work them, the dots go too */
+.slides img.is-broken { visibility: hidden; }
+.dots[hidden] { display: none; }
+@media (scripting: none) { .dots { display: none; } }
 
 @media (prefers-reduced-motion: no-preference) {
 	.rise { animation: rise 800ms var(--ease-out) both; }
@@ -223,7 +228,30 @@ p { margin: 0; text-wrap: pretty; }
 	.ledger-sm dt::after { content: ""; }
 }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+/* Windows high contrast: the system drops fills and the grain, so the current dot gets the system
+   highlight and the grain layer steps aside */
+@media (forced-colors: active) {
+	body::before { display: none; }
+	.dots button::before { border-color: CanvasText; }
+	.dots button[aria-current="true"]::before { background: Highlight; border-color: Highlight; forced-color-adjust: none; }
+}
+
+/* Print: the page on paper, without the grain, the carousel controls or the jump links */
+@media print {
+	body { font-size: 12pt; background: none; }
+	body::before, .skip, .dots, .nav-aside, .to-top, .lightbox { display: none; }
+	.rise { animation: none; }
+	.band { background: none; }
+	.section { padding-block: 24pt; }
+	.style, .plate, .facts, .notes > div, .faq details { break-inside: avoid; }
+	/* KKK answers print even when their question is closed (Chrome, Edge, Safari) */
+	.faq details::details-content { content-visibility: visible; }
+	.faq summary::after { content: none; }
+	/* Contact lines print as what they are */
+	.contact-list a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
+}
 
 .flush-top { padding-top: 0; }
 

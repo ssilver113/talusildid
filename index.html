@@ -11,16 +11,6 @@
 		<link rel="preload" href="fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
 		<link rel="preload" href="fonts/eb-garamond-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 		<link rel="stylesheet" href="css/site.css">
-
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-9827184-2"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'UA-9827184-2');
-		</script>
 	</head>
 	<body>
 		<a class="skip" href="#sisu">Liigu sisu juurde</a>
@@ -181,12 +171,14 @@
 		<script>
 		// Hero carousel: crossfade every 5 s; pauses on hover/focus and stays put for reduced motion.
 		// Only the first slide loads with the page; the rest wait in data-src so they don't hold it up.
+		// A slide that fails to load drops out with its dot, so a broken picture never fades in.
 		(function () {
 			var root = document.querySelector('.carousel');
 			if (!root) return;
 			var slides = root.querySelectorAll('.slides img');
 			var dots = root.querySelectorAll('.dots button');
-			var i = 0, timer = null;
+			var dotRow = root.querySelector('.dots');
+			var i = 0, timer = null, hovered = false, focused = false;
 			var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 			function fetchSlide(img) {
 				if (!img.dataset.src) return;
@@ -195,20 +187,40 @@
 				img.removeAttribute('data-src');
 			}
 			function fetchAll() { slides.forEach(fetchSlide); }
-			if (document.readyState === 'complete') fetchAll(); else window.addEventListener('load', fetchAll);
+			function usable(n) { return !slides[n].classList.contains('is-broken'); }
+			function drop(n) {
+				slides[n].classList.add('is-broken');
+				dots[n].hidden = true;
+				var left = 0;
+				slides.forEach(function (s, k) { if (usable(k)) left++; });
+				if (left < 2) { dotRow.hidden = true; stop(); }
+				if (n === i) show(i + 1);
+			}
 			function show(n) {
+				// Skip past dropped slides; if none is left, stay where we are
+				for (var tries = 0; tries < slides.length && !usable((n + slides.length) % slides.length); tries++) n++;
+				n = (n + slides.length) % slides.length;
+				if (!usable(n)) return;
 				slides[i].classList.remove('is-on'); dots[i].removeAttribute('aria-current');
-				i = (n + slides.length) % slides.length;
+				i = n;
 				fetchSlide(slides[i]);
 				slides[i].classList.add('is-on'); dots[i].setAttribute('aria-current', 'true');
 			}
-			function play() { if (!still && !timer) timer = setInterval(function () { show(i + 1); }, 5000); }
+			function play() {
+				if (still || timer || hovered || focused || document.hidden || dotRow.hidden) return;
+				timer = setInterval(function () { show(i + 1); }, 5000);
+			}
 			function stop() { clearInterval(timer); timer = null; }
+			slides.forEach(function (s, n) {
+				s.addEventListener('error', function () { drop(n); });
+				if (s.complete && s.getAttribute('src') && !s.naturalWidth) drop(n);   // failed before this ran
+			});
+			if (document.readyState === 'complete') fetchAll(); else window.addEventListener('load', fetchAll);
 			dots.forEach(function (d, n) { d.addEventListener('click', function () { show(n); }); });
-			root.addEventListener('mouseenter', stop);
-			root.addEventListener('mouseleave', play);
-			root.addEventListener('focusin', stop);
-			root.addEventListener('focusout', play);
+			root.addEventListener('mouseenter', function () { hovered = true; stop(); });
+			root.addEventListener('mouseleave', function () { hovered = false; play(); });
+			root.addEventListener('focusin', function () { focused = true; stop(); });
+			root.addEventListener('focusout', function (e) { focused = root.contains(e.relatedTarget); play(); });
 			document.addEventListener('visibilitychange', function () { document.hidden ? stop() : play(); });
 			play();
 		})();
