@@ -245,6 +245,35 @@ p { margin: 0; text-wrap: pretty; }
 	.plate-wide { grid-column: 1 / -1; }
 	.plate:not(.plate-wide) img { aspect-ratio: 16 / 9; object-fit: contain; }
 }
+/* Näited: each sign links to its full picture (a bigger file can go in the href later);
+   the script on that page opens it in the lightbox below instead of leaving the page. */
+.zoom { display: block; cursor: zoom-in; }
+html.lb-open { overflow: hidden; }
+.lightbox {
+	position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+	margin: 0; padding: 0; border: 0; background: transparent; color: var(--paper);
+	overflow: hidden; cursor: zoom-out;
+}
+.lightbox[open] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+.lightbox::backdrop { background: transparent; }
+.lb-shade { position: absolute; inset: 0; background: rgb(28 24 19 / 0.94); }
+.lb-frame { position: relative; padding: 8px; outline-offset: 4px; }
+.lb-frame img { width: 100%; height: 100%; }
+.lb-caption, .lb-nav { position: relative; }
+.lb-caption { max-width: 60ch; padding-inline: 16px; text-align: center; font-style: italic; color: var(--paper-2); }
+.lb-caption:empty { display: none; }
+.lb-nav { display: flex; align-items: center; gap: 6px; font-variant-caps: all-small-caps; letter-spacing: 0.1em; font-variant-numeric: lining-nums; color: var(--paper-2); }
+.lb-count { min-width: 5.5em; text-align: center; }
+.lightbox button {
+	display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+	border: 0; background: none; color: var(--paper); font: inherit; font-size: 2rem; line-height: 1; cursor: pointer;
+	transition: color 150ms ease-out;
+}
+.lightbox button:hover { color: #e0766b; }
+.lightbox button:focus-visible { outline: 2px solid var(--paper); outline-offset: -2px; }
+.lb-close { position: absolute; top: 8px; right: 8px; }
+.lb-nav button { font-size: 2.5rem; padding-bottom: 6px; }
+
 .to-top { margin-top: 56px; text-align: center; font-style: italic; }
 .to-top a { color: var(--red); }
 
