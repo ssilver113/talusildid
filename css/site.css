@@ -31,6 +31,8 @@
 	--ink: #24201a;
 	--ink-soft: #594f43;
 	--red: #ad2a1f;
+	--red-on-dark: #e0766b;          /* the stamp red lifted for the dark lightbox */
+	--shade: rgb(28 24 19 / 0.94);   /* lightbox backdrop, a shade under the ink */
 	--wrap: 1120px;
 	--gutter: clamp(16px, 4vw, 40px);
 	--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -67,6 +69,8 @@ p { margin: 0; text-wrap: pretty; }
 
 .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
 .sc { font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
+/* Visually hidden, still read by screen readers */
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 .skip { position: absolute; left: var(--gutter); top: -100px; padding: 8px 14px; background: var(--ink); color: var(--paper); z-index: 110; }
 .skip:focus { top: 12px; }
@@ -74,7 +78,8 @@ p { margin: 0; text-wrap: pretty; }
 /* Masthead */
 .masthead { text-align: center; padding-top: 28px; }
 .masthead .wrap { border-bottom: 3px double var(--ink); padding-bottom: 7px; }
-.wordmark { display: inline-block; font-family: "UnifrakturMaguntia", "UnifrakturMaguntia Fallback", serif; font-size: clamp(3rem, 2rem + 4vw, 5rem); line-height: 1; text-decoration: none; }
+/* The 18vw cap only bites with a large phone text setting, where the one-word mark would run off the screen */
+.wordmark { display: inline-block; font-family: "UnifrakturMaguntia", "UnifrakturMaguntia Fallback", serif; font-size: min(clamp(3rem, 2rem + 4vw, 5rem), 18vw); line-height: 1; text-decoration: none; }
 /* Each link is a 44 px tap target around its small-caps word; the margins are trimmed by the extra
    height, so the menu sits where the bare words did (on phones the second row moves down a little) */
 .nav ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 28px; margin: 7px 0 0; padding: 0; list-style: none; font-size: 1.1875rem; }
@@ -82,12 +87,20 @@ p { margin: 0; text-wrap: pretty; }
 .nav a:hover { text-decoration: underline; }
 .nav a[aria-current="page"] { color: var(--red); }
 .nav-fb svg { width: 0.95em; height: 0.95em; flex: none; }
-/* Facebook leaves the site, so it sits apart behind a hairline; icon only on phones to keep the rows short */
+/* Facebook leaves the site, so it sits apart behind a hairline; icon only on phones to keep the rows short.
+   When it wraps onto a row of its own the hairline has nothing to divide: the script after the menu marks it
+   .is-alone, and it takes the whole row with the link centred (the full row also stops it hopping back up). */
 .nav-aside { display: flex; align-items: center; gap: 28px; }
 .nav-aside::before { content: ""; height: 1.7em; border-left: 1px solid var(--ink-soft); }
+.nav-aside.is-alone { flex-basis: 100%; justify-content: center; }
+.nav-aside.is-alone::before { content: none; }
 @media (max-width: 480px) {
-	.nav ul, .nav-aside { column-gap: 14px; }
+	.nav ul { column-gap: 14px; }
 	.nav-fb-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+	/* The bare icon sits centred in its 44 px tap target; take that padding off both sides of the hairline
+	   gap so the icon stands as far from the hairline as the word before it does */
+	.nav-aside { --pad: max(0px, (44px - 0.95em) / 2); column-gap: calc(14px - var(--pad)); }
+	.nav-aside:not(.is-alone) .nav-fb { margin-inline-end: calc(-1 * var(--pad)); }
 }
 
 /* Ornamental rule: two hairlines and a fleuron */
@@ -110,7 +123,8 @@ p { margin: 0; text-wrap: pretty; }
 
 /* Hero */
 .hero { text-align: center; padding-block: clamp(36px, 5vw, 64px) clamp(56px, 7vw, 96px); }
-.hero h1 { font-size: clamp(2.5rem, 1.4rem + 4vw, 4.5rem); max-width: 16em; margin: 22px auto 0; }
+/* Like the wordmark, the vw caps only bite with a large phone text setting, where a long word would run off the screen */
+.hero h1 { font-size: min(clamp(2.5rem, 1.4rem + 4vw, 4.5rem), 13vw); max-width: 16em; margin: 22px auto 0; }
 .hero h1 em { color: var(--red); }
 .hero p { max-width: 40ch; margin: 22px auto 0; font-size: 1.375rem; color: var(--ink-soft); font-style: italic; }
 .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 30px; }
@@ -149,7 +163,9 @@ p { margin: 0; text-wrap: pretty; }
 .style { display: grid; grid-template-columns: 5fr 6fr; gap: 20px 48px; align-items: center; padding-block: 30px; border-top: 1px solid var(--ink); counter-increment: stiil; }
 .style:last-child { border-bottom: 1px solid var(--ink); }
 .style .frame { padding: 5px; outline-offset: 3px; }
-.style-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+/* Wraps (price under the name) only when a large text setting leaves no room on one line */
+.style > * { min-width: 0; }
+.style-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 10px; margin-bottom: 8px; }
 .style-head::before { content: counter(stiil, upper-roman) "."; color: var(--red); font-weight: 600; min-width: 2.2em; }
 .style h3 { font-size: 1.625rem; font-weight: 600; font-variant-caps: all-small-caps; letter-spacing: 0.06em; }
 .leader { flex: 1; border-bottom: 2px dotted var(--ink-soft); transform: translateY(-6px); min-width: 24px; }
@@ -161,7 +177,7 @@ p { margin: 0; text-wrap: pretty; }
 }
 
 .notes { display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; row-gap: 28px; margin-top: 44px; }
-.notes h3 { font-size: 1.375rem; font-variant-caps: all-small-caps; letter-spacing: 0.08em; margin-bottom: 6px; }
+.notes :is(h2, h3) { font-size: 1.375rem; font-variant-caps: all-small-caps; letter-spacing: 0.08em; margin-bottom: 6px; }
 .notes p { color: var(--ink-soft); }
 .notes p + p { margin-top: 8px; }
 @media (max-width: 760px) { .notes { grid-template-columns: 1fr; } }
@@ -193,7 +209,8 @@ p { margin: 0; text-wrap: pretty; }
 .firewood-lead { margin-top: 14px; font-size: 1.375rem; font-style: italic; color: var(--ink-soft); }
 .firewood .ledger { margin-top: 22px; }
 .firewood-note { margin-top: 16px; color: var(--ink-soft); }
-.tile-link { display: inline-block; margin-top: 14px; color: var(--red); font-style: italic; }
+/* Standalone links get a 44 px tall tap target; the margins are trimmed so the text sits where it did */
+.tile-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 8px; color: var(--red); font-style: italic; }
 .tile-link:hover { text-decoration: underline; }
 @media (hover: hover) { .firewood:has(a:hover) img { filter: none; } }
 @media (max-width: 760px) { .firewood { grid-template-columns: 1fr; } }
@@ -202,7 +219,8 @@ p { margin: 0; text-wrap: pretty; }
 .contact { text-align: center; }
 .contact-phone { display: inline-block; margin-top: 18px; font-size: clamp(2.5rem, 1.6rem + 3vw, 3.75rem); font-weight: 500; line-height: 1.1; text-decoration: none; font-variant-numeric: lining-nums; }
 .contact-phone:hover { color: var(--red); }
-.contact-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 32px; margin: 16px 0 0; padding: 0; list-style: none; font-size: 1.3125rem; font-style: italic; }
+.contact-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 32px; margin: 8px 0 0; padding: 0; list-style: none; font-size: 1.3125rem; font-style: italic; overflow-wrap: anywhere; }
+.contact-list a { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* Kontakt page: a ruled ledger with dotted leaders, like the style entries */
 .ledger { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--ink); }
@@ -210,7 +228,7 @@ p { margin: 0; text-wrap: pretty; }
 .ledger dt { flex: 1; display: flex; align-items: baseline; gap: 10px; font-size: 1.375rem; font-weight: 600; font-variant-caps: all-small-caps; letter-spacing: 0.08em; }
 .ledger dt::after { content: ""; flex: 1; min-width: 24px; border-bottom: 2px dotted var(--ink-soft); transform: translateY(-6px); }
 .ledger dd { margin: 0; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem); font-variant-numeric: lining-nums; }
-.ledger a { text-decoration: none; }
+.ledger a { display: inline-block; padding-block: 7px; margin-block: -7px; text-decoration: none; }
 .ledger a:hover { color: var(--red); text-decoration: underline; }
 .ledger .ledger-big { font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); font-weight: 500; }
 @media (max-width: 600px) {
@@ -251,14 +269,14 @@ p { margin: 0; text-wrap: pretty; }
 	.faq details::details-content { content-visibility: visible; }
 	.faq summary::after { content: none; }
 	/* Contact lines print as what they are */
-	.contact-list a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; }
+	.contact-list a[href^="http"]::after { content: "\a0(" attr(href) ")"; font-size: 0.85em; }
 }
 
 .flush-top { padding-top: 0; }
 
 /* Inner pages: a centred title block, then the work */
 .page-head { text-align: center; padding-block: clamp(36px, 5vw, 64px) clamp(36px, 5vw, 56px); }
-.page-head h1 { font-size: clamp(2.5rem, 1.5rem + 3.4vw, 4rem); margin-top: 22px; }
+.page-head h1 { font-size: min(clamp(2.5rem, 1.5rem + 3.4vw, 4rem), 13vw); margin-top: 22px; }
 .page-head p { max-width: 44ch; margin: 18px auto 0; font-size: 1.375rem; font-style: italic; color: var(--ink-soft); }
 .wrap-narrow { max-width: 1000px; }
 
@@ -287,7 +305,7 @@ html.lb-open { overflow: hidden; }
 }
 .lightbox[open] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
 .lightbox::backdrop { background: transparent; }
-.lb-shade { position: absolute; inset: 0; background: rgb(28 24 19 / 0.94); }
+.lb-shade { position: absolute; inset: 0; background: var(--shade); }
 .lb-frame { position: relative; padding: 8px; outline-offset: 4px; }
 .lb-frame img { width: 100%; height: 100%; }
 .lb-caption, .lb-nav { position: relative; }
@@ -300,7 +318,7 @@ html.lb-open { overflow: hidden; }
 	border: 0; background: none; color: var(--paper); font: inherit; font-size: 2rem; line-height: 1; cursor: pointer;
 	transition: color 150ms ease-out;
 }
-.lightbox button:hover { color: #e0766b; }
+.lightbox button:hover { color: var(--red-on-dark); }
 .lightbox button:focus-visible { outline: 2px solid var(--paper); outline-offset: -2px; }
 .lb-close { position: absolute; top: 8px; right: 8px; }
 .lb-nav button { font-size: 2.5rem; padding-bottom: 6px; }

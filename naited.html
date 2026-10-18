@@ -31,6 +31,22 @@
 						<li class="nav-aside"><a class="nav-fb" href="https://www.facebook.com/talusildid.net/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span class="nav-fb-label">Facebook</span></a></li>
 					</ul>
 				</nav>
+				<script>
+				// Mark the Facebook item when it wraps onto a row of its own (see .nav-aside.is-alone in site.css).
+				// Runs here, before the page paints; checks again whenever the menu changes size.
+				(function () {
+					var aside = document.querySelector('.nav-aside');
+					if (!aside || !window.ResizeObserver) return;
+					var prev = aside.previousElementSibling;
+					function check() {
+						aside.classList.remove('is-alone');
+						if (aside.offsetTop > prev.offsetTop + 1) aside.classList.add('is-alone');
+					}
+					check();
+					new ResizeObserver(check).observe(aside.parentNode);
+					if (document.fonts) document.fonts.ready.then(check);
+				})();
+				</script>
 			</div>
 		</header>
 
@@ -123,12 +139,14 @@
 				<span class="lb-count"></span>
 				<button class="lb-next" type="button" aria-label="Järgmine silt">›</button>
 			</div>
+			<p class="lb-status vh" aria-live="polite"></p>
 		</dialog>
 
 		<script>
 		// Lightbox: a sign grows out of its spot in the gallery and shrinks back on close.
 		// Click or tap anywhere (or Esc) closes; arrows, arrow keys or a swipe step through the signs.
-		// It shows the link's href, so a bigger file can be linked later without touching this.
+		// It fetches the smallest copy in the sign's srcset (or the link's full file) that is sharp at the size shown,
+		// so phones don't pull the originals; a bigger file can be linked in the href later without touching this.
 		(function () {
 			var links = Array.prototype.slice.call(document.querySelectorAll('.gallery .zoom'));
 			var dlg = document.querySelector('.lightbox');
@@ -139,6 +157,7 @@
 			var caption = dlg.querySelector('.lb-caption');
 			var nav = dlg.querySelector('.lb-nav');
 			var count = dlg.querySelector('.lb-count');
+			var status = dlg.querySelector('.lb-status');   // read out on each step, since focus stays on the arrow
 			var closeBtn = dlg.querySelector('.lb-close');
 			var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 			var ease = 'cubic-bezier(0.2, 0, 0, 1)';
@@ -159,17 +178,42 @@
 				return { left: r.left + (r.width - nw * s) / 2, top: r.top + (r.height - nh * s) / 2, width: nw * s, height: nh * s };
 			}
 
+			// The size sign i takes in the lightbox: as big as the window allows, but never past twice the full file
+			// (width/height in the markup are the full file's)
+			function fit(i) {
+				var nw = +thumb(i).getAttribute('width'), nh = +thumb(i).getAttribute('height');
+				var vw = document.documentElement.clientWidth;   // without the scrollbar
+				var margin = vw < 600 ? 12 : 48;
+				var boxW = Math.min(vw - margin * 2, MAX_W) - FRAME;
+				var boxH = innerHeight - margin * 2 - caption.offsetHeight - nav.offsetHeight - 28 - FRAME;
+				var s = Math.min(boxW / nw, boxH / nh, MAX_UP);
+				return { w: Math.round(nw * s), h: Math.round(nh * s) };
+			}
+
+			// The smallest copy (srcset entries plus the full file in the link) at least as wide as that size in device pixels
+			function pick(i) {
+				var t = thumb(i), need = fit(i).w * (window.devicePixelRatio || 1);
+				var list = (t.getAttribute('srcset') || '').split(',').map(function (s) {
+					var p = s.trim().split(/\s+/);
+					return { url: p[0] && new URL(p[0], location.href).href, w: parseInt(p[1], 10) };
+				}).filter(function (c) { return c.url && c.w; });
+				list.push({ url: links[i].href, w: +t.getAttribute('width') });
+				list.sort(function (a, b) { return a.w - b.w; });
+				for (var k = 0; k < list.length; k++) if (list[k].w >= need) return list[k].url;
+				return links[i].href;
+			}
+
 			function load(i) {
 				return new Promise(function (done) {
 					var pic = new Image();
 					pic.onload = pic.onerror = function () { done(pic); };
-					pic.src = links[i].href;
+					pic.src = pick(i);
 					if (pic.complete) done(pic);
 				});
 			}
 
 			// The gallery shows a smaller copy (srcset); when that's already on screen the lightbox opens
-			// with it at once and swaps in the full file once it has arrived. Otherwise it waits for the file,
+			// with it at once and swaps in a sharper copy if one is needed. Otherwise it waits for the file,
 			// and resolves null if that fails too (offline, missing file), so the lightbox can say so.
 			function source(i) {
 				var t = thumb(i);
@@ -179,6 +223,7 @@
 			function sharpen(i) {
 				load(i).then(function (pic) {
 					if (current !== i || !pic.naturalWidth || img.src === pic.src) return;
+					if (shown && pic.naturalWidth <= img.naturalWidth) return;   // what's up already is as sharp
 					(pic.decode ? pic.decode() : Promise.resolve()).catch(function () {}).then(function () {
 						if (current !== i) return;
 						if (shown) img.src = shown = pic.src;
@@ -187,7 +232,7 @@
 				});
 			}
 
-			// Put sign i in the lightbox at its final size (width/height in the markup are the full file's).
+			// Put sign i in the lightbox at its final size.
 			// With no src the frame keeps the sign's size but stays empty, and the caption says what went wrong.
 			function fill(i, src) {
 				var fig = links[i].closest('figure').querySelector('figcaption');
@@ -197,14 +242,10 @@
 				if (src) img.src = src; else img.removeAttribute('src');
 				img.style.visibility = src ? '' : 'hidden';
 				img.alt = thumb(i).alt;
-				var nw = +thumb(i).getAttribute('width'), nh = +thumb(i).getAttribute('height');
-				var vw = document.documentElement.clientWidth;   // without the scrollbar
-				var margin = vw < 600 ? 12 : 48;
-				var boxW = Math.min(vw - margin * 2, MAX_W) - FRAME;
-				var boxH = innerHeight - margin * 2 - caption.offsetHeight - nav.offsetHeight - 28 - FRAME;
-				var s = Math.min(boxW / nw, boxH / nh, MAX_UP);
-				img.style.width = Math.round(nw * s) + 'px';
-				img.style.height = Math.round(nh * s) + 'px';
+				status.textContent = count.textContent + '. ' + (src ? img.alt : FAILED);
+				var size = fit(i);
+				img.style.width = size.w + 'px';
+				img.style.height = size.h + 'px';
 			}
 
 			function setHidden(i, hidden) { thumb(i).style.visibility = hidden ? 'hidden' : ''; }
@@ -320,7 +361,7 @@
 				else if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
 			});
 			addEventListener('resize', function () {
-				if (current !== -1 && !closing) fill(current, shown);
+				if (current !== -1 && !closing) { fill(current, shown); sharpen(current); }
 			});
 		})();
 		</script>

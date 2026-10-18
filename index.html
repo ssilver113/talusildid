@@ -31,6 +31,22 @@
 						<li class="nav-aside"><a class="nav-fb" href="https://www.facebook.com/talusildid.net/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg><span class="nav-fb-label">Facebook</span></a></li>
 					</ul>
 				</nav>
+				<script>
+				// Mark the Facebook item when it wraps onto a row of its own (see .nav-aside.is-alone in site.css).
+				// Runs here, before the page paints; checks again whenever the menu changes size.
+				(function () {
+					var aside = document.querySelector('.nav-aside');
+					if (!aside || !window.ResizeObserver) return;
+					var prev = aside.previousElementSibling;
+					function check() {
+						aside.classList.remove('is-alone');
+						if (aside.offsetTop > prev.offsetTop + 1) aside.classList.add('is-alone');
+					}
+					check();
+					new ResizeObserver(check).observe(aside.parentNode);
+					if (document.fonts) document.fonts.ready.then(check);
+				})();
+				</script>
 			</div>
 		</header>
 
@@ -48,11 +64,11 @@
 				<div class="carousel rise rise-2" aria-roledescription="karussell" aria-label="Valik töid">
 					<div class="frame">
 						<div class="slides">
-							<img class="is-on" src="images/talusildid_welcome.webp" width="900" height="584" fetchpriority="high" alt="Talusildid silt punasel laudseinal">
-							<img data-src="images/naited/niine_3.webp" width="1500" height="766" data-srcset="images/naited/t/niine_3-480.webp 480w, images/naited/t/niine_3-960.webp 960w, images/naited/niine_3.webp 1500w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Servamata laudast talusilt Niine, gooti kirjas freesitud tähtedega">
-							<img data-src="images/naited/rosna.webp" width="2197" height="1183" data-srcset="images/naited/t/rosna-480.webp 480w, images/naited/t/rosna-960.webp 960w, images/naited/t/rosna-1400.webp 1400w, images/naited/rosna.webp 2197w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Rõsna Puhkekeskuse tammeplangust silt logoga">
-							<img data-src="images/naited/otsasilla.webp" width="1273" height="616" data-srcset="images/naited/t/otsasilla-480.webp 480w, images/naited/t/otsasilla-960.webp 960w, images/naited/otsasilla.webp 1273w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Otsasilla talu kahest plangust rippuv silt punasel seinal">
-							<img data-src="images/naited/neptun.webp" width="1146" height="560" data-srcset="images/naited/t/neptun-480.webp 480w, images/naited/t/neptun-960.webp 960w, images/naited/neptun.webp 1146w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Raamitud silt Neptun">
+							<img class="is-on" src="images/talusildid_welcome.webp" width="1158" height="751" srcset="images/t/talusildid_welcome-480.webp 480w, images/t/talusildid_welcome-960.webp 960w, images/talusildid_welcome.webp 1158w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" fetchpriority="high" alt="Talusildid silt punasel laudseinal">
+							<img aria-hidden="true" data-src="images/naited/niine_3.webp" width="1500" height="766" data-srcset="images/naited/t/niine_3-480.webp 480w, images/naited/t/niine_3-960.webp 960w, images/naited/niine_3.webp 1500w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Servamata laudast talusilt Niine, gooti kirjas freesitud tähtedega">
+							<img aria-hidden="true" data-src="images/naited/rosna.webp" width="2197" height="1183" data-srcset="images/naited/t/rosna-480.webp 480w, images/naited/t/rosna-960.webp 960w, images/naited/t/rosna-1400.webp 1400w, images/naited/rosna.webp 2197w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Rõsna Puhkekeskuse tammeplangust silt logoga">
+							<img aria-hidden="true" data-src="images/naited/otsasilla.webp" width="1273" height="616" data-srcset="images/naited/t/otsasilla-480.webp 480w, images/naited/t/otsasilla-960.webp 960w, images/naited/otsasilla.webp 1273w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Otsasilla talu kahest plangust rippuv silt punasel seinal">
+							<img aria-hidden="true" data-src="images/naited/neptun.webp" width="1146" height="560" data-srcset="images/naited/t/neptun-480.webp 480w, images/naited/t/neptun-960.webp 960w, images/naited/neptun.webp 1146w" sizes="(min-width: 1120px) 1022px, calc(100vw - 50px)" decoding="async" alt="Raamitud silt Neptun">
 						</div>
 					</div>
 					<div class="dots" role="group" aria-label="Vali pilt">
@@ -173,15 +189,17 @@
 
 		<script>
 		// Hero carousel: crossfade every 5 s; pauses on hover/focus and stays put for reduced motion.
+		// Pressing a dot or the picture stops it for good, so a phone user can hold a slide too.
 		// Only the first slide loads with the page; the rest wait in data-src so they don't hold it up.
 		// A slide that fails to load drops out with its dot, so a broken picture never fades in.
+		// Slides that aren't showing are hidden from screen readers, so only the visible one is read.
 		(function () {
 			var root = document.querySelector('.carousel');
 			if (!root) return;
 			var slides = root.querySelectorAll('.slides img');
 			var dots = root.querySelectorAll('.dots button');
 			var dotRow = root.querySelector('.dots');
-			var i = 0, timer = null, hovered = false, focused = false;
+			var i = 0, timer = null, hovered = false, focused = false, held = false;
 			var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 			function fetchSlide(img) {
 				if (!img.dataset.src) return;
@@ -204,22 +222,24 @@
 				for (var tries = 0; tries < slides.length && !usable((n + slides.length) % slides.length); tries++) n++;
 				n = (n + slides.length) % slides.length;
 				if (!usable(n)) return;
-				slides[i].classList.remove('is-on'); dots[i].removeAttribute('aria-current');
+				slides[i].classList.remove('is-on'); slides[i].setAttribute('aria-hidden', 'true'); dots[i].removeAttribute('aria-current');
 				i = n;
 				fetchSlide(slides[i]);
-				slides[i].classList.add('is-on'); dots[i].setAttribute('aria-current', 'true');
+				slides[i].classList.add('is-on'); slides[i].removeAttribute('aria-hidden'); dots[i].setAttribute('aria-current', 'true');
 			}
 			function play() {
-				if (still || timer || hovered || focused || document.hidden || dotRow.hidden) return;
+				if (still || held || timer || hovered || focused || document.hidden || dotRow.hidden) return;
 				timer = setInterval(function () { show(i + 1); }, 5000);
 			}
 			function stop() { clearInterval(timer); timer = null; }
+			function hold() { held = true; stop(); }
 			slides.forEach(function (s, n) {
 				s.addEventListener('error', function () { drop(n); });
 				if (s.complete && s.getAttribute('src') && !s.naturalWidth) drop(n);   // failed before this ran
 			});
 			if (document.readyState === 'complete') fetchAll(); else window.addEventListener('load', fetchAll);
-			dots.forEach(function (d, n) { d.addEventListener('click', function () { show(n); }); });
+			dots.forEach(function (d, n) { d.addEventListener('click', function () { hold(); show(n); }); });
+			root.querySelector('.slides').addEventListener('click', hold);
 			root.addEventListener('mouseenter', function () { hovered = true; stop(); });
 			root.addEventListener('mouseleave', function () { hovered = false; play(); });
 			root.addEventListener('focusin', function () { focused = true; stop(); });
