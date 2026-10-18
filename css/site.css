@@ -129,11 +129,10 @@ p { margin: 0; text-wrap: pretty; }
 .hero p { max-width: 40ch; margin: 22px auto 0; font-size: 1.375rem; color: var(--ink-soft); font-style: italic; }
 .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 30px; }
 .frame { display: block; margin: 0; padding: 8px; border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 4px; background: var(--paper); }
-/* Hero carousel: stacked slides crossfade in one frame; the welcome photo keeps its top caption */
+/* Hero carousel: stacked slides crossfade in one frame */
 .carousel { margin-top: clamp(40px, 5vw, 64px); }
 .slides { display: grid; }
 .slides img { grid-area: 1 / 1; width: 100%; aspect-ratio: 900 / 425; object-fit: cover; opacity: 0; transition: opacity 900ms ease-in-out; }
-.slides img:first-child { object-position: top; }
 .slides img.is-on { opacity: 1; }
 /* Small diamonds on 44 px buttons, so a thumb can hit them; the margin is trimmed to match */
 .dots { display: flex; justify-content: center; margin-top: 6px; }
