@@ -1,0 +1,2 @@
+# The old site had a garden furniture page that no longer exists; send its visitors and its search ranking to the home page.
+Redirect 301 /moobel.html /
