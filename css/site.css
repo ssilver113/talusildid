@@ -56,7 +56,7 @@ p { margin: 0; text-wrap: pretty; }
 .nav a[aria-current="page"] { color: var(--red); }
 .nav-fb { display: inline-flex; align-items: center; gap: 7px; }
 .nav-fb svg { width: 0.95em; height: 0.95em; flex: none; }
-/* Facebook leaves the site, so it sits apart behind a hairline; icon only on phones to keep one row */
+/* Facebook leaves the site, so it sits apart behind a hairline; icon only on phones to keep the rows short */
 .nav-aside { border-left: 1px solid var(--ink-soft); padding-left: 28px; }
 @media (max-width: 480px) {
 	.nav ul { column-gap: 14px; }
@@ -153,19 +153,19 @@ p { margin: 0; text-wrap: pretty; }
 	.details { columns: 1; }
 }
 
-/* Other work */
-.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 56px; }
-.tile { display: flex; flex-direction: column; text-decoration: none; text-align: center; }
-.tile .frame { overflow: hidden; }
-.tile img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: sepia(0.15); transition: filter 400ms ease-out; }
-.tile h3 { margin-top: 22px; font-size: 1.875rem; font-variant-caps: all-small-caps; letter-spacing: 0.06em; font-weight: 600; }
-.tile p { margin: 8px auto 0; color: var(--ink-soft); max-width: 44ch; }
-.tile-link { margin-top: 12px; color: var(--red); font-style: italic; }
-@media (hover: hover) {
-	.tile:hover img { filter: none; }
-	.tile:hover .tile-link { text-decoration: underline; text-underline-offset: 4px; }
-}
-@media (max-width: 760px) { .tiles { grid-template-columns: 1fr; } }
+/* Firewood: one framed photo beside a short ledger, under a "besides signs" kicker */
+.firewood { display: grid; grid-template-columns: 6fr 5fr; gap: 36px 56px; align-items: center; }
+.firewood .frame { overflow: hidden; }
+.firewood img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; filter: sepia(0.15); transition: filter 400ms ease-out; }
+.kicker { color: var(--red); font-variant-caps: all-small-caps; letter-spacing: 0.1em; }
+.firewood .section-title { margin-top: 4px; }
+.firewood-lead { margin-top: 14px; font-size: 1.375rem; font-style: italic; color: var(--ink-soft); }
+.firewood .ledger { margin-top: 22px; }
+.firewood-note { margin-top: 16px; color: var(--ink-soft); }
+.tile-link { display: inline-block; margin-top: 14px; color: var(--red); font-style: italic; }
+.tile-link:hover { text-decoration: underline; }
+@media (hover: hover) { .firewood:has(a:hover) img { filter: none; } }
+@media (max-width: 760px) { .firewood { grid-template-columns: 1fr; } }
 
 /* Contact */
 .contact { text-align: center; }
@@ -188,6 +188,15 @@ p { margin: 0; text-wrap: pretty; }
 	.ledger dd { overflow-wrap: anywhere; }
 }
 .ledger + .notes { max-width: 760px; margin-inline: auto; }
+/* Compact ledger for short spec lists (front-page firewood) */
+.ledger-sm div { padding-block: 12px; }
+.ledger-sm dt { font-size: 1.1875rem; }
+.ledger-sm dd { font-size: 1.375rem; }
+/* Values are short, so the leader row holds even on phones */
+@media (max-width: 600px) {
+	.ledger-sm div { flex-direction: row; gap: 10px; }
+	.ledger-sm dt::after { content: ""; }
+}
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
@@ -214,15 +223,6 @@ p { margin: 0; text-wrap: pretty; }
 .to-top { margin-top: 56px; text-align: center; font-style: italic; }
 .to-top a { color: var(--red); }
 
-/* Furniture specs: finish note and a two-cell ruled table */
-.spec { max-width: 760px; margin: 0 auto clamp(48px, 6vw, 72px); text-align: center; }
-.spec h2 { font-size: 1.375rem; font-variant-caps: all-small-caps; letter-spacing: 0.08em; margin-bottom: 6px; }
-.spec p { color: var(--ink-soft); }
-.spec p + h2 { margin-top: 32px; }
-.spec .facts { margin: 14px 0 0; }
-.spec .facts dd { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-variant-numeric: lining-nums; }
-.facts-note { margin-top: 10px; font-style: italic; font-size: 1.0625rem; }
-@media (min-width: 761px) { .facts-2 { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 761px) {
 	.gallery-photos .plate:not(.plate-wide) img { aspect-ratio: 4 / 3; object-fit: cover; }
 	/* An odd photo out sits centred on the last row */
