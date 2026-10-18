@@ -6,32 +6,15 @@
 		<meta name="description" content="Eestis on ilus traditsioon paigutada oma talu või suvekodu väravasse kohanimele vastav talusilt või viit. Valmistan erinevaid silte ja teen ka eritellimusi.">
 		<meta name="keywords" content="puit,talusildid,viidad,puutöö,fassaadisildid,seinasildid,juhtmärgid,tänavasildid,hotellisildid,puhkemajasildid,puidustmööbel,lastemööbel,taburetid,pingid,talu,talud,saun,saunasildid,puu,lakitud,peitsitud,freesitud,värvitud,aiamööbel,puustuudio,tehas,puutehas,käsitöö,hoonesildid,freesimine,peits,värv,õli,tõrvaõli,mänd,männilaud,suvekodu,talu,talud,küttepuud,sööglaud,diivanilaud,logod">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="css/header.css">
 		<style>
 			body {
 				background-image: url(images/bg3.webp);
 			}
 						
-			#title {
-				margin-left: 20px; 
-				margin-top: 50px; 
-				margin-bottom: 10px;
-				max-width: 80%;
-			}
-			
 			#title_text {
 				font-size:large;
 				padding-top:20px;
-			}
-			
-			#header {
-				max-width: 900px;
-				width: 90%;
-				margin:auto;
-				margin-left: auto;
-				margin-right: auto;
-				display: block;
-				margin-bottom: 10px;
-				position: relative;
 			}
 			
 			#body {
@@ -78,23 +61,6 @@
 				margin-top: 0px;
 				padding-bottom: 40px;
 				cursor: pointer;
-			}
-			
-			#menu-info {
-				margin-left: 70px; 
-				margin-bottom: 20px;
-			}
-			
-			#menu-naited {
-				margin-left: 35px; 
-				margin-bottom: 23px;
-			}
-			
-			#facebook_icon {
-				height: 38px; 
-				position: absolute;
-				right: 10px;
-				bottom: 0;
 			}
 			
 			.white {
@@ -153,14 +119,16 @@
 		</script>
 	</head>	
 	<body>
-		<div id="header">
-			<a href="index.html"><img src="images/header.webp" id="title" alt="talusildid"/></a>
-			<a href="index.html" ><img src="images/info.webp" onmouseover="this.src='images/info2.webp '" alt="info (avaleht)" onmouseout="this.src='images/info.webp'" id="menu-info"/></a>
-			<img src="images/naited2.webp" id="menu-naited" alt="näited"/>
-			<a href="https://www.facebook.com/talusildid.net/">
-				<img src="images/icon_facebook.webp" id="facebook_icon" alt="facebook"/>
-			</a>
-		</div>
+		<header class="site-header">
+			<a class="site-logo" href="index.html"><img src="images/header.webp" width="378" height="70" alt="Talusildid - avaleht"></a>
+			<nav class="site-nav" aria-label="Peamenüü">
+				<ul>
+					<li><a href="index.html">Info</a></li>
+					<li><a href="naited.html" aria-current="page">Näited</a></li>
+				</ul>
+			</nav>
+			<a class="site-facebook" href="https://www.facebook.com/talusildid.net/" aria-label="Talusildid Facebookis"><img src="images/icon_facebook.webp" width="38" height="38" alt=""></a>
+		</header>
 		<div id="body">
 			<h1 id="title_text">Näited siltidest</h1>
             <p id="facebook_message">Vaata meie viimaseid töid meie <a href="https://www.facebook.com/talusildid.net">Facebookist!</a></p>
