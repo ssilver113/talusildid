@@ -122,15 +122,15 @@ p { margin: 0; text-wrap: pretty; }
 .btn-line:hover { background: var(--paper-2); }
 
 /* Hero */
-.hero { text-align: center; padding-block: clamp(36px, 5vw, 64px) clamp(56px, 7vw, 96px); }
+.hero { text-align: center; padding-block: clamp(24px, 3.5vw, 44px) clamp(56px, 7vw, 96px); }
 /* Like the wordmark, the vw caps only bite with a large phone text setting, where a long word would run off the screen */
 .hero h1 { font-size: min(clamp(2.5rem, 1.4rem + 4vw, 4.5rem), 13vw); max-width: 16em; margin: 22px auto 0; }
 .hero h1 em { color: var(--red); }
 .hero p { max-width: 40ch; margin: 22px auto 0; font-size: 1.375rem; color: var(--ink-soft); font-style: italic; }
 .hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 30px; }
 .frame { display: block; margin: 0; padding: 8px; border: 1px solid var(--ink); outline: 1px solid var(--ink); outline-offset: 4px; background: var(--paper); }
-/* Hero carousel: stacked slides crossfade in one frame */
-.carousel { margin-top: clamp(40px, 5vw, 64px); }
+/* Hero carousel: stacked slides crossfade in one frame; it opens the page, above the headline */
+.carousel { margin-bottom: clamp(20px, 3vw, 36px); }
 .slides { display: grid; }
 .slides img { grid-area: 1 / 1; width: 100%; aspect-ratio: 900 / 425; object-fit: cover; opacity: 0; transition: opacity 900ms ease-in-out; }
 .slides img.is-on { opacity: 1; }
