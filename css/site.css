@@ -292,6 +292,14 @@ p { margin: 0; text-wrap: pretty; }
 	.gallery { grid-template-columns: 1fr 1fr; gap: 48px 40px; }
 	.plate-wide { grid-column: 1 / -1; }
 	.plate:not(.plate-wide) img { aspect-ratio: 16 / 9; object-fit: contain; }
+	/* Näited, with its script running: each pair shares the row by the signs' own shapes, so both
+	   pictures stand at the same height and fill their mounts (no letterbox). The script sets --share,
+	   a plate's part of the row (its width ÷ height over the pair's sum); 12px is the mount's padding and border.
+	   A plate left without a partner sits centred at half width. */
+	.gallery.is-justified { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
+	.gallery.is-justified .plate { flex: 0 0 calc(12px + (100% - 40px - 24px) * var(--share, 0.5)); min-width: 0; }
+	.gallery.is-justified .plate-wide { flex-basis: 100%; }
+	.gallery.is-justified .is-fit img { aspect-ratio: auto; }
 }
 /* Näited: each sign links to its full picture (a bigger file can go in the href later);
    the script on that page opens it in the lightbox below instead of leaving the page. */

@@ -25,7 +25,7 @@
 		<link rel="preload" href="fonts/unifrakturmaguntia-latin.woff2" as="font" type="font/woff2" crossorigin>
 		<link rel="preload" href="fonts/eb-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
 		<link rel="preload" href="fonts/eb-garamond-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
-		<link rel="stylesheet" href="css/site.css">
+		<link rel="stylesheet" href="css/site.css?v=2026-11-12">
 	</head>
 	<body>
 		<a class="skip" href="#sisu">Liigu sisu juurde</a>
@@ -154,6 +154,34 @@
 			</div>
 			<p class="lb-status vh" aria-live="polite"></p>
 		</dialog>
+
+		<script>
+		// Gallery pairs: two plates between wide ones share the row by their own shapes (see .gallery.is-justified
+		// in site.css), so a square sign beside a long one gets as tall as it, with no empty mount around either.
+		// Only on wide screens' layout; phones stack one per row and ignore --share. Without this script the pairs keep 16:9 mounts.
+		(function () {
+			var gallery = document.querySelector('.gallery');
+			if (!gallery) return;
+			var run = [];
+			function ratio(p) { var i = p.querySelector('img'); return (+i.getAttribute('width') || 16) / (+i.getAttribute('height') || 9); }
+			function flush() {
+				for (var k = 0; k + 1 < run.length; k += 2) {
+					var a = ratio(run[k]), b = ratio(run[k + 1]);
+					run[k].style.setProperty('--share', a / (a + b));
+					run[k + 1].style.setProperty('--share', b / (a + b));
+					run[k].classList.add('is-fit');
+					run[k + 1].classList.add('is-fit');
+				}
+				if (run.length % 2) run[run.length - 1].classList.add('is-fit');   // a plate left alone: half width, centred
+				run = [];
+			}
+			Array.prototype.forEach.call(gallery.children, function (p) {
+				if (p.classList.contains('plate-wide')) flush(); else run.push(p);
+			});
+			flush();
+			gallery.classList.add('is-justified');
+		})();
+		</script>
 
 		<script>
 		// Lightbox: a sign grows out of its spot in the gallery and shrinks back on close.
