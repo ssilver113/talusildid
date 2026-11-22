@@ -20,15 +20,3 @@ A plain static site: hand-written HTML and one stylesheet, with no build step an
 | `fonts/` | Self-hosted EB Garamond and UnifrakturMaguntia |
 | `images/` | Photos (WebP) and social sharing images |
 | `extras/` | Design experiments, not linked from the site |
-
-## Running it locally
-
-Serve the folder with any static file server and open the root URL, for example:
-
-```sh
-python -m http.server 8000
-```
-
-## Deploying
-
-Pushing to `main` deploys the site to Hostinger. Hostinger's CDN doesn't clear its cache when a file is replaced under the same name. After changing an image or `site.css`, flush the CDN in hPanel or bump the `?v=` query in the HTML.
